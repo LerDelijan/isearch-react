@@ -1,0 +1,16 @@
+.main {
+  padding-left: 3px;
+  padding-top: 3px;
+}
+
+ul {
+  padding: 0px
+}
+
+.a-decoration:hover{
+  text-decoration: none;
+}
+
+p {
+  color: gray;
+}
