@@ -8,12 +8,13 @@ class App extends Component {
     this.state = {
       results: [],
       term: '',
+      type: '',
       limit: '12'
     };
   }
 
   dataSearch() {
-    fetch(`https://itunes.apple.com/search?term=${this.state.term}&media=music&limit=${this.state.limit}`)
+    fetch(`https://itunes.apple.com/search?term=${this.state.term}&media=${this.state.type}&limit=${this.state.limit}`)
       .then(res => {
         if (res.status !== 200) {
           throw Error(res.statusText)
@@ -37,12 +38,24 @@ class App extends Component {
     this.setState({ term: e.target.value.toLowerCase() }, this.dataSearch);
   }
 
+  handleSelectChange = e => {
+    this.setState({ type: e.target.value }, this.dataSearch)
+  }
+
   render() {
     const results = this.state.results;
     return (
       <form>
         <div className="container main">
           <div className="input-group mb-3">
+            <select 
+              className="form-control col-md-2"
+              value={this.state.type}
+              onChange={this.handleSelectChange}>
+              <option selected value="music">Music</option>
+              <option value="movie">Movie</option>
+              <option value="tvShow">TV Show</option>
+            </select>
             <input
               className="form-control"
               placeholder="Search"
